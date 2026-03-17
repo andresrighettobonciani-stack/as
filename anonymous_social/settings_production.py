@@ -59,7 +59,7 @@ WSGI_APPLICATION = 'anonymous_social.wsgi.application'
 ASGI_APPLICATION = 'anonymous_social.asgi.application'
 
 # Database
-# Use PostgreSQL in production
+# Use PostgreSQL in production with psycopg3
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -68,6 +68,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
+        'OPTIONS': {
+            # psycopg3 is the default for Django 4.2+
+        },
     }
 }
 
