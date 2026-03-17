@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /logout/
+Disallow: /upload-chat-file/
+
+Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml

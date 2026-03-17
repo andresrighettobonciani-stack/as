@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Anonymous Network{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #0f0f0f;
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .auth-header h1 {
+        font-size: 32px;
+        color: #ffffff;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        margin-bottom: 10px;
+    }
+
+    .auth-header p {
+        color: #cccccc;
+        font-size: 14px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #ffffff;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 12px 15px;
+        background-color: #000000;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        color: #ffffff;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #ffffff;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        background-color: #0a0a0a;
+    }
+
+    .form-input::placeholder {
+        color: #006600;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 14px;
+        background-color: #ffffff;
+        color: #000000;
+        border: none;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #cccccc;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        transform: translateY(-2px);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #333333;
+    }
+
+    .auth-footer a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .auth-footer a:hover {
+        color: #cccccc;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+
+    .errorlist {
+        list-style: none;
+        margin: 10px 0;
+        padding: 0;
+    }
+
+    .errorlist li {
+        color: #ff0000;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .help-text {
+        font-size: 11px;
+        color: #006600;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h1>JOIN NETWORK</h1>
+        <p>Create your anonymous identity</p>
+    </div>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <ul class="errorlist">
+                    {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% if form.username.help_text %}
+                <p class="help-text">{{ form.username.help_text }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password1.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password2.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+
+    <div class="auth-footer">
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
+</div>
+{% endblock %}

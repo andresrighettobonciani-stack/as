@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Anonymous Network{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .navbar {
+            background-color: #000000;
+            border-bottom: 2px solid #ffffff;
+            padding: 15px 0;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .messages {
+            margin: 20px 0;
+        }
+
+        .message {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.success {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+            color: #ffffff;
+        }
+
+        .message.error {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #cccccc;
+            color: #cccccc;
+        }
+
+        .message.info {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: #aaaaaa;
+            color: #aaaaaa;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .footer {
+            background-color: #000000;
+            border-top: 2px solid #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">ANONYMOUS</div>
+            <ul class="nav-links">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'global_chat' %}">Global Chat</a></li>
+                    <li><a href="{% url 'channel_list' %}">Channels</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Anonymous Network | Stay Anonymous, Stay Free</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

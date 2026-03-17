@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Anonymous Network{% endblock %}
+
+{% block extra_css %}
+<style>
+    .home-layout {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .user-section {
+        background-color: #0f0f0f;
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .welcome-header h1 {
+        font-size: 32px;
+        color: #ffffff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        margin-bottom: 10px;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+        50% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
+    }
+
+    .welcome-header p {
+        color: #cccccc;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .user-info {
+        background-color: #000000;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .user-info h2 {
+        color: #ffffff;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .user-detail {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #333333;
+    }
+
+    .user-detail:last-child { border-bottom: none; }
+    .user-detail span:first-child { color: #cccccc; font-weight: bold; }
+    .user-detail span:last-child { color: #ffffff; }
+
+    .features {
+        margin-top: 20px;
+    }
+
+    .features h3 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .feature-list li {
+        padding: 10px;
+        margin-bottom: 8px;
+        background-color: #000000;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        color: #cccccc;
+        font-size: 14px;
+    }
+
+    .feature-list li::before {
+        content: "▸ ";
+        color: #ffffff;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    .feature-list a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .feature-list a:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home-layout">
+    <div class="user-section">
+        <div class="welcome-header">
+            <h1>WELCOME TO THE NETWORK</h1>
+            <p>You are now connected</p>
+        </div>
+
+        <div class="user-info">
+            <h2>Your Identity</h2>
+            <div class="user-detail">
+                <span>Username:</span>
+                <span>{{ user.username }}</span>
+            </div>
+            <div class="user-detail">
+                <span>Display Name:</span>
+                <span>{{ user.display_name }}</span>
+            </div>
+            <div class="user-detail">
+                <span>Member Since:</span>
+                <span>{{ user.created_at|date:"M d, Y" }}</span>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>Network Features</h3>
+            <ul class="feature-list">
+                <li>Complete anonymity protected</li>
+                <li><a href="{% url 'global_chat' %}">Real-time global chat →</a></li>
+                <li><a href="{% url 'channel_list' %}">Secure communication channels →</a></li>
+                <li>Anonymous posting and sharing</li>
+                <li>No tracking, no data collection</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
