@@ -31,6 +31,6 @@ zope.interface==8.2
 
 # Production dependencies
 whitenoise==6.6.0
-psycopg[binary]==3.1.18
+psycopg[binary]==3.3.3
 gunicorn==21.2.0
 python-dotenv==1.0.0
